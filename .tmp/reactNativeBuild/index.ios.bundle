@@ -1255,66 +1255,14 @@ var _CaseDetails = require(501            ); // 501 = ./CaseDetails
 
 var _CaseDetails2 = babelHelpers.interopRequireDefault(_CaseDetails);
 
+var _Home = require(502     ); // 502 = ./Home
+
+var _Home2 = babelHelpers.interopRequireDefault(_Home);
+
 var _Case = require(500            ); // 500 = ./models/Case
 
-var Home = function (_React$Component) {
-    babelHelpers.inherits(Home, _React$Component);
-
-    function Home(props) {
-        babelHelpers.classCallCheck(this, Home);
-
-        var _this = babelHelpers.possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
-
-        _this.realm = new _realm2.default({ schema: [_Case.Case] });
-        _this.state = {
-            cases: _this.realm.objects('Case').sorted('dateTimeCreated', true)
-        };
-        return _this;
-    }
-
-    babelHelpers.createClass(Home, [{
-        key: 'render',
-        value: function render() {
-            var navigate = this.props.navigation.navigate;
-
-            var listItems = this.state.cases.map(function (data, index) {
-                return _react2.default.createElement(
-                    _reactNative.View,
-                    { onNavigationStateChange: function onNavigationStateChange(prevState, newState) {
-                            console.log('frigg yea');
-                        },
-                        style: index == 0 ? _Style2.default.firstListItem : _Style2.default.listItem,
-                        key: index },
-                    _react2.default.createElement(
-                        _reactNative.Text,
-                        { onPress: function onPress() {
-                                return navigate('CaseDetails', { data: data });
-                            } },
-                        data.name
-                    )
-                );
-            });
-            return _react2.default.createElement(
-                _reactNative.View,
-                null,
-                _react2.default.createElement(
-                    _reactNative.ScrollView,
-                    null,
-                    listItems
-                )
-            );
-        }
-    }]);
-    return Home;
-}(_react2.default.Component);
-
-Home.navigationOptions = {
-    title: 'Your Cases'
-};
-
-
 var MainScreenNavigator = (0, _reactNavigation.TabNavigator)({
-    Home: { screen: Home, lazyLoad: true },
+    Home: { screen: _Home2.default },
     NewCase: { screen: _NewCase2.default }
 });
 
@@ -59065,6 +59013,92 @@ CaseDetails.navigationOptions = {
 };
 exports.default = CaseDetails;
 }, 501, null, "SimpleApp/app/CaseDetails.js");
+__d(/* SimpleApp/app/Home.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = require(13     ); // 13 = react
+
+var _react2 = babelHelpers.interopRequireDefault(_react);
+
+var _reactNative = require(46            ); // 46 = react-native
+
+var _reactNavigation = require(417               ); // 417 = react-navigation
+
+var _realm = require(477    ); // 477 = realm
+
+var _realm2 = babelHelpers.interopRequireDefault(_realm);
+
+var _Style = require(498      ); // 498 = ./Style
+
+var _Style2 = babelHelpers.interopRequireDefault(_Style);
+
+var _NewCase = require(499        ); // 499 = ./NewCase
+
+var _NewCase2 = babelHelpers.interopRequireDefault(_NewCase);
+
+var _CaseDetails = require(501            ); // 501 = ./CaseDetails
+
+var _CaseDetails2 = babelHelpers.interopRequireDefault(_CaseDetails);
+
+var _Case = require(500            ); // 500 = ./models/Case
+
+var Home = function (_React$Component) {
+    babelHelpers.inherits(Home, _React$Component);
+
+    function Home(props) {
+        babelHelpers.classCallCheck(this, Home);
+
+        var _this = babelHelpers.possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
+
+        _this.realm = new _realm2.default({ schema: [_Case.Case] });
+        _this.state = {
+            cases: _this.realm.objects('Case').sorted('dateTimeCreated', true)
+        };
+        return _this;
+    }
+
+    babelHelpers.createClass(Home, [{
+        key: 'render',
+        value: function render() {
+            var navigate = this.props.navigation.navigate;
+
+            var listItems = this.state.cases.map(function (data, index) {
+                return _react2.default.createElement(
+                    _reactNative.View,
+                    { onNavigationStateChange: function onNavigationStateChange(prevState, newState) {
+                            console.log('frigg yea');
+                        },
+                        style: index == 0 ? _Style2.default.firstListItem : _Style2.default.listItem,
+                        key: index },
+                    _react2.default.createElement(
+                        _reactNative.Text,
+                        { onPress: function onPress() {
+                                return navigate('CaseDetails', { data: data });
+                            } },
+                        data.name
+                    )
+                );
+            });
+            return _react2.default.createElement(
+                _reactNative.View,
+                null,
+                _react2.default.createElement(
+                    _reactNative.ScrollView,
+                    null,
+                    listItems
+                )
+            );
+        }
+    }]);
+    return Home;
+}(_react2.default.Component);
+
+Home.navigationOptions = {
+    title: 'Your Cases'
+};
+exports.default = Home;
+}, 502, null, "SimpleApp/app/Home.js");
 ;require(97);
 ;require(0);
 //# sourceMappingURL=index.ios.map
