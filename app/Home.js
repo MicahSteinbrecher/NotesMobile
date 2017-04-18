@@ -27,17 +27,13 @@ export default class Home extends React.Component {
     constructor(props) {
         super(props);
         this.realm = new Realm({schema: [Case]});
-        this.state = {
-            cases: this.realm.objects('Case').sorted('dateTimeCreated', true),
-        }
     };
 
 
     render() {
         const { navigate } = this.props.navigation;
-        const listItems = this.state.cases.map((data, index) =>
-            <View onNavigationStateChange={(prevState, newState) => {console.log('frigg yea')}}
-                  style={ (index == 0) ? Styles.firstListItem : Styles.listItem}
+        const listItems = this.props.screenProps.cases.map((data, index) =>
+            <View style={ (index == 0) ? Styles.firstListItem : Styles.listItem}
                   key={index}>
                 <Text onPress={ () => navigate('CaseDetails', { data: data }) }>
                     {data.name}

@@ -1261,15 +1261,57 @@ var _Home2 = babelHelpers.interopRequireDefault(_Home);
 
 var _Case = require(500            ); // 500 = ./models/Case
 
-var MainScreenNavigator = (0, _reactNavigation.TabNavigator)({
+var HomeScreen = (0, _reactNavigation.TabNavigator)({
     Home: { screen: _Home2.default },
     NewCase: { screen: _NewCase2.default }
 });
 
-var SimpleApp = (0, _reactNavigation.StackNavigator)({
-    Home: { screen: MainScreenNavigator },
+var MainScreenNavigator = (0, _reactNavigation.StackNavigator)({
+    Home: { screen: HomeScreen },
     CaseDetails: { screen: _CaseDetails2.default }
 });
+
+function createComponent(instance, props) {
+    return function () {
+        return _react2.default.createElement(instance, props);
+    };
+}
+
+var SimpleApp = function (_React$Component) {
+    babelHelpers.inherits(SimpleApp, _React$Component);
+
+    function SimpleApp(props) {
+        babelHelpers.classCallCheck(this, SimpleApp);
+
+        var _this = babelHelpers.possibleConstructorReturn(this, (SimpleApp.__proto__ || Object.getPrototypeOf(SimpleApp)).call(this, props));
+
+        _this.realm = new _realm2.default({ schema: [_Case.Case] });
+        _this.state = {
+            cases: _this.realm.objects('Case').sorted('dateTimeCreated', true)
+        };
+        _this.onNavigationStateChange = _this.onNavigationStateChange.bind(_this);
+        return _this;
+    }
+
+    babelHelpers.createClass(SimpleApp, [{
+        key: 'onNavigationStateChange',
+        value: function onNavigationStateChange(prevState, currentState) {
+            console.log(currentState);
+            console.log(currentState.index);
+            if (currentState.index == 0 && prevState.index == 0 && currentState.routes[0].index == 0) {
+                this.setState({
+                    cases: this.realm.objects('Case').sorted('dateTimeCreated', true)
+                });
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(MainScreenNavigator, { screenProps: this.state, onNavigationStateChange: this.onNavigationStateChange });
+        }
+    }]);
+    return SimpleApp;
+}(_react2.default.Component);
 
 _reactNative.AppRegistry.registerComponent('SimpleApp', function () {
     return SimpleApp;
@@ -59052,9 +59094,6 @@ var Home = function (_React$Component) {
         var _this = babelHelpers.possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
 
         _this.realm = new _realm2.default({ schema: [_Case.Case] });
-        _this.state = {
-            cases: _this.realm.objects('Case').sorted('dateTimeCreated', true)
-        };
         return _this;
     }
 
@@ -59063,13 +59102,10 @@ var Home = function (_React$Component) {
         value: function render() {
             var navigate = this.props.navigation.navigate;
 
-            var listItems = this.state.cases.map(function (data, index) {
+            var listItems = this.props.screenProps.cases.map(function (data, index) {
                 return _react2.default.createElement(
                     _reactNative.View,
-                    { onNavigationStateChange: function onNavigationStateChange(prevState, newState) {
-                            console.log('frigg yea');
-                        },
-                        style: index == 0 ? _Style2.default.firstListItem : _Style2.default.listItem,
+                    { style: index == 0 ? _Style2.default.firstListItem : _Style2.default.listItem,
                         key: index },
                     _react2.default.createElement(
                         _reactNative.Text,
